@@ -7,16 +7,21 @@ export default async function handler(req, res) {
 
   if (req.method === "POST") {
     const { name, mail, password } = req.body;
-    const existingUser = User.findOne(mail);
+    const existingUser = await User.findOne({ mail: mail });
+
     if (existingUser) {
       return res.status(500).json({ status: "User already exists" });
     }
 
-    const hashedPassword = hash(password, 12);
-
-    User.create(name, mail, hashedPassword);
-    return res.status(200).json({ status: "New user created" });
+    const hashedPassword = await hash(password, 12);
+    try {
+      User.create({ name, mail, hashedPassword });
+      return res.status(200).json({ status: "New user created" });
+    } catch (error) {
+      return res.status(404).json({ message: error.message });
+    }
   } else {
-    throw new Error({ message: "HTTP Method not valid" });
+    res.status(404).json({ message: "Page not found" });
   }
+  throw new Error({ message: "HTTP Method not valid" });
 }

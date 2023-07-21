@@ -37,7 +37,7 @@ async function createUser(e) {
   const formData = new FormData(e.target);
   const data = Object.fromEntries(formData);
 
-  const res = await fetch("/api/submit", {
+  const res = await fetch("/api/auth/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -46,7 +46,7 @@ async function createUser(e) {
   if (res.ok) {
     console.log("New user created");
   } else {
-    throw new Error("Failed to create new User");
+    console.log(res);
   }
 }
 

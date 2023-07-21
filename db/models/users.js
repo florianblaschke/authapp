@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  name: String,
-  mail: String,
-  password: String,
+  name: { type: String, required: true },
+  mail: { type: String, required: true },
+  password: { type: String, required: true },
+  settings: [],
   favorites: [{ coffee: String, rating: Number }],
 });
 
