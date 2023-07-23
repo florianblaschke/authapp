@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { name, mail, password } = req.body;
     const existingUser = await User.findOne({ mail: mail });
+    console.log(existingUser);
 
     if (existingUser) {
       return res.status(500).json({ status: "User already exists" });
@@ -15,7 +16,15 @@ export default async function handler(req, res) {
 
     const hashedPassword = await hash(password, 12);
     try {
-      User.create({ name, mail, hashedPassword });
+      const newUser = {
+        name: name,
+        mail: mail,
+        password: hashedPassword,
+      };
+
+      console.log(newUser);
+
+      await User.create(newUser);
       return res.status(200).json({ status: "New user created" });
     } catch (error) {
       return res.status(404).json({ message: error.message });

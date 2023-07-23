@@ -56,8 +56,8 @@ export default function Form() {
       <StyledForm onSubmit={createUser}>
         <Slabel htmlFor="name">Enter your name:</Slabel>
         <Sinput type="text" id="name" name="name" />
-        <Slabel htmlFor="email">Enter your E-Mail Adress:</Slabel>
-        <Sinput type="email" id="email" name="email" />
+        <Slabel htmlFor="mail">Enter your E-Mail Adress:</Slabel>
+        <Sinput type="email" id="mail" name="mail" />
         <Slabel htmlFor="password">Enter your password:</Slabel>
         <Sinput type="text" id="password" name="password" />
         <Sbutton>Hello</Sbutton>
