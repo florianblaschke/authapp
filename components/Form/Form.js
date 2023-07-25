@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledForm = styled.form`
+export const StyledForm = styled.form`
   display: flex;
   flex-flow: column wrap;
   width: 25%;
@@ -10,18 +10,18 @@ const StyledForm = styled.form`
   border-radius: 8px;
 `;
 
-const Slabel = styled.label`
+export const Slabel = styled.label`
   padding: 15px 15px 15px 0px;
   font-weight: thin;
 `;
 
-const Sinput = styled.input`
+export const Sinput = styled.input`
   height: 30px;
   border-radius: 8px;
   border: solid thin grey;
 `;
 
-const Sbutton = styled.button`
+export const Sbutton = styled.button`
   width: 128px;
   padding: 8px;
   margin: 16px;
@@ -60,7 +60,7 @@ export default function Form() {
         <Sinput type="email" id="mail" name="mail" />
         <Slabel htmlFor="password">Enter your password:</Slabel>
         <Sinput type="text" id="password" name="password" />
-        <Sbutton>Hello</Sbutton>
+        <Sbutton>Create new User</Sbutton>
       </StyledForm>
     </>
   );
