@@ -1,14 +1,13 @@
 import { StyledForm, Slabel, Sinput, Sbutton } from "@/components/Form/Form";
-import { signIn } from "next-auth/react";
+import { signIn, getSession, useSession } from "next-auth/react";
 
 export default function Login() {
+  const { session, status } = useSession();
   async function onLogin(e) {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
-
-    console.log(data);
 
     const status = await signIn("credentials", {
       redirect: false,
@@ -19,6 +18,9 @@ export default function Login() {
 
     console.log(status);
   }
+
+  console.log(getSession());
+
   return (
     <StyledForm onSubmit={onLogin}>
       <Slabel htmlFor="mail">Enter your E-Mail Adress:</Slabel>

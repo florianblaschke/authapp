@@ -14,6 +14,7 @@ export const authOptions = {
     }),
     CredentialsProvider({
       name: "Credentials",
+
       async authorize(credentials, req) {
         await dbConnect();
         if (!dbConnect) return new Error({ error: "No connection" });
@@ -27,18 +28,29 @@ export const authOptions = {
 
         const checkPassword = await compare(
           credentials.password,
-          result.password
+          loggedUser.password
         );
 
         //incorrect pw
-        if (!checkPassword || result.mail !== credentials.mail) {
+        if (!checkPassword || loggedUser.mail !== credentials.mail) {
           throw new Error("Username or Password doesn't match!");
         }
-
-        return loggedUser;
+        return Promise.resolve(loggedUser);
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      return token;
+    },
+    session: async ({ session, token }) => {
+      const { name, mail, favorites, settings } = token.user;
+      const user = { name, mail, favorites, settings };
+      session.user = user;
+      return session;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
